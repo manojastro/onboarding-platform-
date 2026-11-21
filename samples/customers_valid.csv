@@ -1,0 +1,7 @@
+customer_id,email,first_name,last_name,phone,country,signup_date,status
+C-1001,ann.lee@example.com,Ann,Lee,+1-415-555-0101,US,2026-01-15,active
+C-1002,  BOB@Example.com ,Bob,"Smith, Jr.",+44 20 7946 0958,GB,15/02/2026,Active
+C-1003,cara@example.com,Cara,Oduya,,NG,03/04/2026,inactive
+C-1004,dan.wu@example.com,Dan,Wu,+91 98765 43210,IN,2026-03-09,ACTIVE
+C-1005,eve@example.com,Eve,Martin,,FR,,active
+C-1006,frank@example,Frank,Ito,+81 3-1234-5678,JP,2026-05-20,active

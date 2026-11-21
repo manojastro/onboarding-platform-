@@ -1,0 +1,6 @@
+[
+  {"order_id": "O-6001", "customer_id": "C-1001", "total": 10.00, "currency": "USD"},
+  {"order_id": "O-6002", "customer_id": "C-1002", "total": 12.50, "currency": "USD", "shipping": {"city": "Leeds"}},
+  {"order_id": "O-6003", "order_id": "O-6003-dup", "customer_id": "C-1003", "total": 7, "currency": "EUR"},
+  42
+]

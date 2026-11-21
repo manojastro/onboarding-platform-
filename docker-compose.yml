@@ -1,0 +1,64 @@
+name: onboarding
+
+x-database-env: &database-env
+  DATABASE_URL: postgresql+psycopg://onboarding:onboarding@db:5432/onboarding
+  TEST_DATABASE_URL: postgresql+psycopg://onboarding:onboarding@db:5432/onboarding_test
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: onboarding
+      POSTGRES_PASSWORD: onboarding
+      POSTGRES_DB: onboarding
+    ports:
+      # Host port is deliberately not 5432, which is often taken by a local Postgres.
+      - "${DB_PORT:-55432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U onboarding -d onboarding"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  mock-destination:
+    build: ./mock_destination
+    environment:
+      MOCK_API_KEY: ${MOCK_API_KEY:-mock_sk_test_local}
+    ports:
+      - "${MOCK_PORT:-9000}:9000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:9000/health')"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      <<: *database-env
+      UPLOAD_DIR: /data/uploads
+      OPERATOR_NAME: ${OPERATOR_NAME:-operator}
+      MOCK_DESTINATION_URL: http://mock-destination:9000
+      MOCK_API_KEY: ${MOCK_API_KEY:-mock_sk_test_local}
+    volumes:
+      - uploads:/data/uploads
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build: ./frontend
+    ports:
+      - "${WEB_PORT:-3000}:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  uploads:

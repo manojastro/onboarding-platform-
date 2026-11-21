@@ -1,0 +1,6 @@
+[
+  {"order_id": "O-5001", "customer_id": "C-1001", "order_date": "2026-04-03", "total": 19.990, "currency": "USD", "status": "paid"},
+  {"order_id": "O-5002", "customer_id": "C-1002", "order_date": "2026-04-04", "total": 250, "currency": "GBP", "status": "shipped"},
+  {"order_id": "O-5003", "customer_id": "C-1004", "order_date": "2026-04-05", "total": 1500, "currency": "JPY", "status": "pending"},
+  {"order_id": "O-5004", "customer_id": "C-1003", "order_date": "2026-04-06", "total": "0.10", "currency": "EUR", "status": null}
+]
